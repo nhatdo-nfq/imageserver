@@ -218,12 +218,33 @@
                   "Success": {
                     "value": {
                       "user_id": 1,
-                      "data": [],
+                      "data": [
+                        {
+                          "uuid": "b927be68-65c8-4c49-bba7-bc736dfe0de8",
+                          "name": "test.com",
+                          "createdAt": "2020-02-04 11:06",
+                          "owner": {
+                            "id": 1,
+                            "firstName": "Nhật",
+                            "surname": "Đỗ",
+                            "email": "nhat.do@nfq.asia",
+                            "confirmed": true,
+                            "extras": {
+                              "gavatar": "3fd6d6d6f23e1f44af6a52192556018a"
+                            }
+                          },
+                          "extras": {
+                            "canDelete": true,
+                            "isAdmin": true,
+                            "status": 1
+                          }
+                        }
+                      ],
                       "pagination": {
-                        "returned": 0,
+                        "returned": 1,
                         "current_page": null,
                         "limit": 10,
-                        "total": 0
+                        "total": 1
                       },
                       "error": 0
                     }
