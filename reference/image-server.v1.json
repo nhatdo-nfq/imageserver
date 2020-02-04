@@ -206,6 +206,27 @@
                       }
                     }
                   }
+                },
+                "examples": {
+                  "Success": {
+                    "value": {
+                      "user_id": 1,
+                      "data": [],
+                      "pagination": {
+                        "returned": 0,
+                        "current_page": null,
+                        "limit": 10,
+                        "total": 0
+                      },
+                      "error": 0
+                    }
+                  },
+                  "Failed": {
+                    "value": {
+                      "error": 1,
+                      "msg": "Access Denied."
+                    }
+                  }
                 }
               }
             }
