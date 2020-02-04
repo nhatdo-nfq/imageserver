@@ -1,0 +1,315 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Image Server",
+    "version": "1.0",
+    "contact": {},
+    "description": ""
+  },
+  "servers": [
+    {
+      "url": "https://imageserver.scalecommerce.cloud/api/v1",
+      "variables": {}
+    }
+  ],
+  "paths": {
+    "/project/leave": {
+      "post": {
+        "tags": [
+          "Project"
+        ],
+        "summary": "Leave Project",
+        "operationId": "LeaveProject",
+        "parameters": [],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LeaveProjectRequest"
+              },
+              "example": {
+                "uuid": "0f67e1a0-0260-4dcf-b667-c8226d12d9a4"
+              }
+            }
+          },
+          "required": true,
+          "x-send-file-in-body": false
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/project/delete": {
+      "post": {
+        "tags": [
+          "Project"
+        ],
+        "summary": "Delete Project",
+        "operationId": "DeleteProject",
+        "parameters": [],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DeleteProjectRequest"
+              },
+              "example": {
+                "uuid": "0f67e1a0-0260-4dcf-b667-c8226d12d9a4"
+              }
+            }
+          },
+          "required": true,
+          "x-send-file-in-body": false
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/project": {
+      "post": {
+        "tags": [
+          "Project"
+        ],
+        "summary": "Create Project",
+        "operationId": "CreateProject",
+        "parameters": [],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateProjectRequest"
+              },
+              "example": {
+                "name": "lazada.com.vn"
+              }
+            }
+          },
+          "required": true,
+          "x-send-file-in-body": false
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/project/0f67e1a0-0260-4dcf-b667-c8226d12d9a4/users": {
+      "get": {
+        "tags": [
+          "Project"
+        ],
+        "summary": "Project Members",
+        "operationId": "ProjectMembers",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/project/0f67e1a0-0260-4dcf-b667-c8226d12d9a4": {
+      "post": {
+        "tags": [
+          "Project"
+        ],
+        "summary": "Project Detail",
+        "operationId": "ProjectDetail",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/project/invite": {
+      "post": {
+        "tags": [
+          "Project"
+        ],
+        "summary": "Invite User",
+        "operationId": "InviteUser",
+        "parameters": [],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/InviteUserRequest"
+              },
+              "example": {
+                "uuid": "0f67e1a0-0260-4dcf-b667-c8226d12d9a4",
+                "emails": [
+                  "doducnhat1990@gmail.com",
+                  "dd.nhat@gmail.com"
+                ]
+              }
+            }
+          },
+          "required": true,
+          "x-send-file-in-body": false
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/project/list": {
+      "get": {
+        "tags": [
+          "Project"
+        ],
+        "summary": "Project List",
+        "operationId": "ProjectList",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "user_id": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false,
+        "description": "List all projects",
+        "requestBody": {}
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Project"
+    }
+  ],
+  "security": [
+    {
+      "auth-token": []
+    }
+  ],
+  "components": {
+    "schemas": {
+      "InviteUserRequest": {
+        "title": "InviteUserRequest",
+        "required": [
+          "uuid",
+          "emails"
+        ],
+        "type": "object",
+        "properties": {
+          "uuid": {
+            "type": "string"
+          },
+          "emails": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": ""
+          }
+        },
+        "example": {
+          "uuid": "0f67e1a0-0260-4dcf-b667-c8226d12d9a4",
+          "emails": [
+            "doducnhat1990@gmail.com",
+            "dd.nhat@gmail.com"
+          ]
+        }
+      },
+      "CreateProjectRequest": {
+        "title": "CreateProjectRequest",
+        "required": [
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "name": "lazada.com.vn"
+        },
+        "x-examples": {}
+      },
+      "DeleteProjectRequest": {
+        "title": "DeleteProjectRequest",
+        "required": [
+          "uuid"
+        ],
+        "type": "object",
+        "properties": {
+          "uuid": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "uuid": "0f67e1a0-0260-4dcf-b667-c8226d12d9a4"
+        }
+      },
+      "LeaveProjectRequest": {
+        "title": "LeaveProjectRequest",
+        "required": [
+          "uuid"
+        ],
+        "type": "object",
+        "properties": {
+          "uuid": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "uuid": "0f67e1a0-0260-4dcf-b667-c8226d12d9a4"
+        }
+      }
+    },
+    "securitySchemes": {
+      "auth-token": {
+        "type": "apiKey",
+        "description": "",
+        "name": "BAD8i6WkWWfYayTHqfeZlFGqtByQsDNImY7UnSZbwvs",
+        "in": "header"
+      }
+    }
+  }
+}
