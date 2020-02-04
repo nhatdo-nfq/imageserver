@@ -212,7 +212,106 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object"
+                  "type": "object",
+                  "properties": {
+                    "user_id": {
+                      "type": "number"
+                    },
+                    "data": {
+                      "type": [
+                        "string",
+                        "array"
+                      ],
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "uuid": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "createdAt": {
+                            "type": "string",
+                            "description": "DateTime: Y-m-d H:i"
+                          },
+                          "owner": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "number"
+                              },
+                              "firstname": {
+                                "type": "string"
+                              },
+                              "surname": {
+                                "type": "string"
+                              },
+                              "email": {
+                                "type": "string"
+                              },
+                              "confirmed": {
+                                "type": "boolean"
+                              },
+                              "extras": {
+                                "type": "object",
+                                "properties": {
+                                  "gravatar": {
+                                    "type": "string",
+                                    "description": "gravatar token"
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "extras": {
+                            "type": "object",
+                            "properties": {
+                              "canDelete": {
+                                "type": "boolean",
+                                "description": "Current user can delete this project"
+                              },
+                              "isAdmin": {
+                                "type": "boolean",
+                                "description": "Current user is admin"
+                              },
+                              "status": {
+                                "type": "number"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "pagination": {
+                      "type": "object",
+                      "properties": {
+                        "returned": {
+                          "type": "number",
+                          "description": "Total item in current page"
+                        },
+                        "current_page": {
+                          "type": "number",
+                          "description": "Current page"
+                        },
+                        "limit": {
+                          "type": "number",
+                          "description": "Item per page"
+                        },
+                        "total": {
+                          "type": "number",
+                          "description": "Total results"
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "number"
+                    },
+                    "msg": {
+                      "type": "string",
+                      "description": "Optional\nOnly shown if there is any error"
+                    }
+                  }
                 },
                 "examples": {
                   "Success": {
@@ -262,7 +361,12 @@
         },
         "deprecated": false,
         "description": "List all projects",
-        "requestBody": {}
+        "requestBody": {},
+        "security": [
+          {
+            "API Token": []
+          }
+        ]
       }
     }
   },
@@ -353,10 +457,10 @@
       }
     },
     "securitySchemes": {
-      "x-auth-token": {
+      "API Token": {
         "type": "apiKey",
-        "description": "",
-        "name": "BAD8i6WkWWfYayTHqfeZlFGqtByQsDNImY7UnSZbwvs",
+        "description": "User Access Token",
+        "name": "x-auth-token",
         "in": "header"
       }
     }
