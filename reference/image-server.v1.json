@@ -178,7 +178,7 @@
                     "owner": {
                       "$ref": "#/components/schemas/User"
                     },
-                    "member": {
+                    "members": {
                       "type": "array",
                       "items": {
                         "$ref": "#/components/schemas/User"
@@ -213,7 +213,8 @@
           {
             "API Token": []
           }
-        ]
+        ],
+        "description": "List all members of this project"
       },
       "parameters": [
         {
