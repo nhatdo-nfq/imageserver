@@ -8,17 +8,17 @@
   },
   "servers": [
     {
-      "url": "https://imageserver.scalecommerce.cloud/api/v1",
+      "url": "https://imageserver.scalecommerce.cloud",
       "variables": {},
       "description": "Staging"
     },
     {
-      "url": "http://imageserver.local/api/v1",
+      "url": "http://imageserver.local",
       "description": "Local"
     }
   ],
   "paths": {
-    "/project/leave": {
+    "/api/v1/project/leave": {
       "post": {
         "tags": [
           "Project"
@@ -48,9 +48,10 @@
           }
         },
         "deprecated": false
-      }
+      },
+      "parameters": []
     },
-    "/project/delete": {
+    "/api/v1/project/delete": {
       "post": {
         "tags": [
           "Project"
@@ -80,9 +81,10 @@
           }
         },
         "deprecated": false
-      }
+      },
+      "parameters": []
     },
-    "/project": {
+    "/api/v1/project": {
       "post": {
         "tags": [
           "Project"
@@ -156,9 +158,10 @@
             "API Token": []
           }
         ]
-      }
+      },
+      "parameters": []
     },
-    "/project/{uuid}/users/": {
+    "/api/v1/project/{uuid}/users/": {
       "get": {
         "tags": [
           "Project"
@@ -228,7 +231,7 @@
         }
       ]
     },
-    "/project/{uuid}": {
+    "/api/v1/project/{uuid}": {
       "post": {
         "tags": [
           "Project"
@@ -300,7 +303,7 @@
         }
       ]
     },
-    "/project/invite": {
+    "/api/v1/project/invite": {
       "post": {
         "tags": [
           "Project"
@@ -334,9 +337,10 @@
           }
         },
         "deprecated": false
-      }
+      },
+      "parameters": []
     },
-    "/project/list": {
+    "/api/v1/project/list": {
       "get": {
         "tags": [
           "Project"
@@ -557,7 +561,8 @@
             "API Token": []
           }
         ]
-      }
+      },
+      "parameters": []
     }
   },
   "tags": [
