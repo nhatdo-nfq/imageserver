@@ -358,127 +358,29 @@
                   "type": "object",
                   "properties": {
                     "user_id": {
-                      "type": "number"
+                      "type": "integer"
                     },
                     "data": {
-                      "type": [
-                        "string",
-                        "array"
-                      ],
+                      "type": "array",
                       "items": {
-                        "type": "object",
-                        "properties": {
-                          "uuid": {
-                            "type": "string"
-                          },
-                          "name": {
-                            "type": "string"
-                          },
-                          "createdAt": {
-                            "type": "string",
-                            "description": "DateTime: Y-m-d H:i"
-                          },
-                          "owner": {
-                            "type": "object",
-                            "required": [
-                              "id",
-                              "firstname",
-                              "surname",
-                              "email",
-                              "confirmed",
-                              "extras"
-                            ],
-                            "properties": {
-                              "id": {
-                                "type": "number"
-                              },
-                              "firstname": {
-                                "type": "string"
-                              },
-                              "surname": {
-                                "type": "string"
-                              },
-                              "email": {
-                                "type": "string"
-                              },
-                              "confirmed": {
-                                "type": "boolean"
-                              },
-                              "extras": {
-                                "type": "object",
-                                "properties": {
-                                  "gravatar": {
-                                    "type": "string",
-                                    "description": "gravatar token"
-                                  }
-                                }
-                              }
-                            }
-                          },
-                          "extras": {
-                            "type": "object",
-                            "properties": {
-                              "canDelete": {
-                                "type": "boolean",
-                                "description": "Current user can delete this project"
-                              },
-                              "isAdmin": {
-                                "type": "boolean",
-                                "description": "Current user is admin"
-                              },
-                              "status": {
-                                "type": "number"
-                              }
-                            }
-                          }
-                        },
-                        "required": [
-                          "uuid",
-                          "name",
-                          "createdAt",
-                          "owner",
-                          "extras"
-                        ]
-                      }
-                    },
-                    "pagination": {
-                      "type": "object",
-                      "required": [
-                        "returned",
-                        "current_page",
-                        "limit",
-                        "total"
-                      ],
-                      "properties": {
-                        "returned": {
-                          "type": "number",
-                          "description": "Total item in current page"
-                        },
-                        "current_page": {
-                          "type": "number",
-                          "description": "Current page"
-                        },
-                        "limit": {
-                          "type": "number",
-                          "description": "Item per page"
-                        },
-                        "total": {
-                          "type": "number",
-                          "description": "Total results"
-                        }
+                        "$ref": "#/components/schemas/Project"
                       }
                     },
                     "error": {
-                      "type": "number"
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 1
                     },
-                    "msg": {
+                    "message": {
                       "type": "string",
-                      "description": "Optional\nOnly shown if there is any error"
+                      "description": "Present if there is any error"
+                    },
+                    "paginate": {
+                      "$ref": "#/components/schemas/Pagination"
                     }
                   },
                   "required": [
                     "data",
-                    "pagination",
                     "error"
                   ]
                 },
@@ -653,39 +555,6 @@
       "User": {
         "title": "User",
         "type": "object",
-        "properties": {
-          "id": {
-            "type": "number"
-          },
-          "firstname": {
-            "type": "string"
-          },
-          "surname": {
-            "type": "string"
-          },
-          "email": {
-            "type": "string"
-          },
-          "confirmed": {
-            "type": "boolean"
-          },
-          "extras": {
-            "type": "object",
-            "properties": {
-              "gravatar": {
-                "type": "string"
-              }
-            }
-          }
-        },
-        "required": [
-          "id",
-          "firstname",
-          "surname",
-          "email",
-          "confirmed",
-          "extras"
-        ],
         "x-examples": {
           "User": {
             "id": 1,
@@ -697,23 +566,67 @@
               "gavatar": "3fd6d6d6f23e1f44af6a52192556018a"
             }
           }
-        }
+        },
+        "properties": {
+          "id": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "firstname": {
+            "type": "string"
+          },
+          "surname": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string",
+            "format": "email"
+          },
+          "confirmed": {
+            "type": "boolean"
+          },
+          "extras": {
+            "type": "object",
+            "properties": {
+              "gravatar": {
+                "type": "string",
+                "minLength": 32,
+                "maxLength": 32,
+                "pattern": "^[A-Za-z0-9]+"
+              }
+            }
+          }
+        },
+        "required": [
+          "id",
+          "firstname",
+          "surname",
+          "email",
+          "confirmed",
+          "extras"
+        ]
       },
       "Pagination": {
         "title": "Pagination",
         "type": "object",
         "properties": {
           "returned": {
-            "type": "number"
+            "type": "integer",
+            "minimum": 0
           },
           "current_page": {
-            "type": "number"
+            "type": "integer",
+            "default": 1,
+            "minimum": 0
           },
           "limit": {
-            "type": "number"
+            "type": "integer",
+            "default": 10,
+            "minimum": 1
           },
           "total": {
-            "type": "number"
+            "type": "integer",
+            "minimum": 1
           }
         },
         "required": [
@@ -721,14 +634,39 @@
           "current_page",
           "limit",
           "total"
-        ]
+        ],
+        "x-examples": {}
       },
       "Project": {
         "title": "Project",
         "type": "object",
+        "x-examples": {
+          "Project": {
+            "uuid": "b927be68-65c8-4c49-bba7-bc736dfe0de8",
+            "name": "test.com",
+            "createdAt": "2020-02-04 11:06",
+            "owner": {
+              "id": 1,
+              "firstName": "Nhật",
+              "surname": "Đỗ",
+              "email": "nhat.do@nfq.asia",
+              "confirmed": true,
+              "extras": {
+                "gavatar": "3fd6d6d6f23e1f44af6a52192556018a"
+              }
+            },
+            "extras": {
+              "canDelete": true,
+              "isAdmin": true,
+              "status": 1
+            }
+          }
+        },
+        "description": "",
         "properties": {
           "uuid": {
-            "type": "string"
+            "type": "string",
+            "format": "uuid"
           },
           "name": {
             "type": "string"
@@ -754,7 +692,9 @@
                 "type": "boolean"
               },
               "status": {
-                "type": "boolean"
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 1
               }
             }
           }
@@ -765,30 +705,7 @@
           "created_at",
           "owner",
           "extras"
-        ],
-        "x-examples": {
-          "Project": {
-            "uuid": "b927be68-65c8-4c49-bba7-bc736dfe0de8",
-            "name": "test.com",
-            "createdAt": "2020-02-04 11:06",
-            "owner": {
-              "id": 1,
-              "firstName": "Nhật",
-              "surname": "Đỗ",
-              "email": "nhat.do@nfq.asia",
-              "confirmed": true,
-              "extras": {
-                "gavatar": "3fd6d6d6f23e1f44af6a52192556018a"
-              }
-            },
-            "extras": {
-              "canDelete": true,
-              "isAdmin": true,
-              "status": 1
-            }
-          }
-        },
-        "description": ""
+        ]
       }
     },
     "securitySchemes": {
