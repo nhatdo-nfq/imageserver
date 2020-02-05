@@ -228,7 +228,7 @@
         }
       ]
     },
-    "/project/0f67e1a0-0260-4dcf-b667-c8226d12d9a4": {
+    "/project/{uuid}": {
       "post": {
         "tags": [
           "Project"
@@ -239,11 +239,65 @@
         "responses": {
           "200": {
             "description": "",
-            "headers": {}
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "project": {
+                      "$ref": "#/components/schemas/Project"
+                    },
+                    "error": {
+                      "type": "number"
+                    }
+                  }
+                },
+                "examples": {
+                  "Success": {
+                    "value": {
+                      "project": {
+                        "uuid": "014f045a-45d4-4d99-a9b1-432ad696b4ca",
+                        "name": "tiki.vn",
+                        "createdAt": "2020-02-03 07:55",
+                        "owner": {
+                          "id": 1,
+                          "firstName": "Nhật",
+                          "surname": "Đỗ",
+                          "email": "ddnhat@gmail.com",
+                          "confirmed": true,
+                          "extras": {
+                            "gravatar": "24383f42136c8a5e7132a029a4b1e7db"
+                          }
+                        },
+                        "extras": []
+                      },
+                      "error": 0
+                    }
+                  }
+                }
+              }
+            }
           }
         },
-        "deprecated": false
-      }
+        "deprecated": false,
+        "description": "Get project info",
+        "security": [
+          {
+            "API Token": []
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "uuid",
+          "in": "path",
+          "required": true
+        }
+      ]
     },
     "/project/invite": {
       "post": {
