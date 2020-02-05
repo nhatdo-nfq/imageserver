@@ -333,10 +333,39 @@
         "responses": {
           "200": {
             "description": "",
-            "headers": {}
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 1
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ]
+                },
+                "examples": {
+                  "Success": {
+                    "value": {
+                      "error": 0
+                    }
+                  }
+                }
+              }
+            }
           }
         },
-        "deprecated": false
+        "deprecated": false,
+        "security": [
+          {
+            "API Token": []
+          }
+        ]
       },
       "parameters": []
     },
