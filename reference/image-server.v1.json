@@ -8,12 +8,17 @@
   },
   "servers": [
     {
-      "url": "https://imageserver.scalecommerce.cloud/api/v1",
-      "variables": {}
+      "url": "https://imageserver.scalecommerce.cloud",
+      "variables": {},
+      "description": "Staging"
+    },
+    {
+      "url": "http://imageserver.local",
+      "description": "Local"
     }
   ],
   "paths": {
-    "/project/leave": {
+    "/api/v1/project/leave": {
       "post": {
         "tags": [
           "Project"
@@ -43,9 +48,10 @@
           }
         },
         "deprecated": false
-      }
+      },
+      "parameters": []
     },
-    "/project/delete": {
+    "/api/v1/project/delete": {
       "post": {
         "tags": [
           "Project"
@@ -75,9 +81,10 @@
           }
         },
         "deprecated": false
-      }
+      },
+      "parameters": []
     },
-    "/project": {
+    "/api/v1/project": {
       "post": {
         "tags": [
           "Project"
@@ -94,7 +101,8 @@
               },
               "example": {
                 "name": "lazada.com.vn"
-              }
+              },
+              "examples": {}
             }
           },
           "required": true,
@@ -103,13 +111,57 @@
         "responses": {
           "200": {
             "description": "",
-            "headers": {}
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                },
+                "examples": {
+                  "Failed": {
+                    "value": {
+                      "error": 1,
+                      "msg": "Access Denied."
+                    }
+                  },
+                  "Success": {
+                    "value": {
+                      "project": {
+                        "uuid": "1e8f8f2a-e665-4226-bf2f-4df3d0f4acc5",
+                        "name": "zing.vn",
+                        "createdAt": "2020-02-04 11:39",
+                        "owner": {
+                          "id": 1,
+                          "firstName": "Nhật",
+                          "surname": "Đỗ",
+                          "email": "nhat.do@nfq.asia",
+                          "confirmed": true,
+                          "extras": {
+                            "gavatar": "3fd6d6d6f23e1f44af6a52192556018a"
+                          }
+                        },
+                        "extras": []
+                      },
+                      "error": 0
+                    }
+                  }
+                }
+              }
+            }
           }
         },
-        "deprecated": false
-      }
+        "deprecated": false,
+        "description": "Add new project",
+        "security": [
+          {
+            "API Token": []
+          }
+        ]
+      },
+      "parameters": []
     },
-    "/project/0f67e1a0-0260-4dcf-b667-c8226d12d9a4/users": {
+    "/api/v1/project/{uuid}/users/": {
       "get": {
         "tags": [
           "Project"
@@ -120,13 +172,66 @@
         "responses": {
           "200": {
             "description": "",
-            "headers": {}
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "owner": {
+                      "$ref": "#/components/schemas/User"
+                    },
+                    "members": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/User"
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "Success": {
+                    "value": {
+                      "owner": {
+                        "id": 1,
+                        "firstName": "Nhật",
+                        "surname": "Đỗ",
+                        "email": "ddnhat@gmail.com",
+                        "confirmed": true,
+                        "extras": {
+                          "gravatar": "24383f42136c8a5e7132a029a4b1e7db"
+                        }
+                      },
+                      "members": [],
+                      "error": 0
+                    }
+                  }
+                }
+              }
+            }
           }
         },
-        "deprecated": false
-      }
+        "deprecated": false,
+        "security": [
+          {
+            "API Token": []
+          }
+        ],
+        "description": "List all members of this project"
+      },
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "uuid",
+          "in": "path",
+          "required": true,
+          "description": "Project UUID"
+        }
+      ]
     },
-    "/project/0f67e1a0-0260-4dcf-b667-c8226d12d9a4": {
+    "/api/v1/project/{uuid}": {
       "post": {
         "tags": [
           "Project"
@@ -137,13 +242,68 @@
         "responses": {
           "200": {
             "description": "",
-            "headers": {}
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "project": {
+                      "$ref": "#/components/schemas/Project"
+                    },
+                    "error": {
+                      "type": "number"
+                    }
+                  }
+                },
+                "examples": {
+                  "Success": {
+                    "value": {
+                      "project": {
+                        "uuid": "014f045a-45d4-4d99-a9b1-432ad696b4ca",
+                        "name": "tiki.vn",
+                        "createdAt": "2020-02-03 07:55",
+                        "owner": {
+                          "id": 1,
+                          "firstName": "Nhật",
+                          "surname": "Đỗ",
+                          "email": "ddnhat@gmail.com",
+                          "confirmed": true,
+                          "extras": {
+                            "gravatar": "24383f42136c8a5e7132a029a4b1e7db"
+                          }
+                        },
+                        "extras": []
+                      },
+                      "error": 0
+                    }
+                  }
+                }
+              }
+            }
           }
         },
-        "deprecated": false
-      }
+        "deprecated": false,
+        "description": "Get project info",
+        "security": [
+          {
+            "API Token": []
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "uuid",
+          "in": "path",
+          "required": true,
+          "description": "Project UUID"
+        }
+      ]
     },
-    "/project/invite": {
+    "/api/v1/project/invite": {
       "post": {
         "tags": [
           "Project"
@@ -173,13 +333,43 @@
         "responses": {
           "200": {
             "description": "",
-            "headers": {}
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 1
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ]
+                },
+                "examples": {
+                  "Success": {
+                    "value": {
+                      "error": 0
+                    }
+                  }
+                }
+              }
+            }
           }
         },
-        "deprecated": false
-      }
+        "deprecated": false,
+        "security": [
+          {
+            "API Token": []
+          }
+        ]
+      },
+      "parameters": []
     },
-    "/project/list": {
+    "/api/v1/project/list": {
       "get": {
         "tags": [
           "Project"
@@ -197,13 +387,96 @@
                   "type": "object",
                   "properties": {
                     "user_id": {
-                      "type": "string"
+                      "type": "integer"
                     },
                     "data": {
                       "type": "array",
                       "items": {
-                        "type": "object"
+                        "$ref": "#/components/schemas/Project"
                       }
+                    },
+                    "error": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 1
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "Present if there is any error"
+                    },
+                    "paginate": {
+                      "$ref": "#/components/schemas/Pagination"
+                    }
+                  },
+                  "required": [
+                    "data",
+                    "error"
+                  ]
+                },
+                "examples": {
+                  "Success": {
+                    "value": {
+                      "user_id": 1,
+                      "data": [
+                        {
+                          "uuid": "b927be68-65c8-4c49-bba7-bc736dfe0de8",
+                          "name": "test.com",
+                          "createdAt": "2020-02-04 11:06",
+                          "owner": {
+                            "id": 1,
+                            "firstName": "Nhật",
+                            "surname": "Đỗ",
+                            "email": "nhat.do@nfq.asia",
+                            "confirmed": true,
+                            "extras": {
+                              "gavatar": "3fd6d6d6f23e1f44af6a52192556018a"
+                            }
+                          },
+                          "extras": {
+                            "canDelete": true,
+                            "isAdmin": true,
+                            "status": 1
+                          }
+                        }
+                      ],
+                      "pagination": {
+                        "returned": 1,
+                        "current_page": null,
+                        "limit": 10,
+                        "total": 1
+                      },
+                      "error": 0
+                    }
+                  },
+                  "Failed": {
+                    "value": {
+                      "error": 1,
+                      "msg": "Access Denied."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ]
+                },
+                "examples": {
+                  "Unauthorized": {
+                    "value": {
+                      "message": "Username could not be found."
                     }
                   }
                 }
@@ -213,8 +486,14 @@
         },
         "deprecated": false,
         "description": "List all projects",
-        "requestBody": {}
-      }
+        "requestBody": {},
+        "security": [
+          {
+            "API Token": []
+          }
+        ]
+      },
+      "parameters": []
     }
   },
   "tags": [
@@ -301,13 +580,168 @@
         "example": {
           "uuid": "0f67e1a0-0260-4dcf-b667-c8226d12d9a4"
         }
+      },
+      "User": {
+        "title": "User",
+        "type": "object",
+        "x-examples": {
+          "User": {
+            "id": 1,
+            "firstName": "John",
+            "surname": "Doe",
+            "email": "john.doe@imageserver.test",
+            "confirmed": true,
+            "extras": {
+              "gavatar": "3fd6d6d6f23e1f44af6a52192556018a"
+            }
+          }
+        },
+        "properties": {
+          "id": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "firstname": {
+            "type": "string"
+          },
+          "surname": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string",
+            "format": "email"
+          },
+          "confirmed": {
+            "type": "boolean"
+          },
+          "extras": {
+            "type": "object",
+            "properties": {
+              "gravatar": {
+                "type": "string",
+                "minLength": 32,
+                "maxLength": 32,
+                "pattern": "^[A-Za-z0-9]+"
+              }
+            }
+          }
+        },
+        "required": [
+          "id",
+          "firstname",
+          "surname",
+          "email",
+          "confirmed",
+          "extras"
+        ]
+      },
+      "Pagination": {
+        "title": "Pagination",
+        "type": "object",
+        "properties": {
+          "returned": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "current_page": {
+            "type": "integer",
+            "default": 1,
+            "minimum": 0
+          },
+          "limit": {
+            "type": "integer",
+            "default": 10,
+            "minimum": 1
+          },
+          "total": {
+            "type": "integer",
+            "minimum": 1
+          }
+        },
+        "required": [
+          "returned",
+          "current_page",
+          "limit",
+          "total"
+        ],
+        "x-examples": {}
+      },
+      "Project": {
+        "title": "Project",
+        "type": "object",
+        "x-examples": {
+          "Project": {
+            "uuid": "b927be68-65c8-4c49-bba7-bc736dfe0de8",
+            "name": "test.com",
+            "createdAt": "2020-02-04 11:06",
+            "owner": {
+              "id": 1,
+              "firstName": "Nhật",
+              "surname": "Đỗ",
+              "email": "nhat.do@nfq.asia",
+              "confirmed": true,
+              "extras": {
+                "gavatar": "3fd6d6d6f23e1f44af6a52192556018a"
+              }
+            },
+            "extras": {
+              "canDelete": true,
+              "isAdmin": true,
+              "status": 1
+            }
+          }
+        },
+        "description": "",
+        "properties": {
+          "uuid": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string"
+          },
+          "created_at": {
+            "type": "string"
+          },
+          "owner": {
+            "$ref": "#/components/schemas/User"
+          },
+          "extras": {
+            "type": "object",
+            "required": [
+              "can_delete",
+              "is_admin",
+              "status"
+            ],
+            "properties": {
+              "can_delete": {
+                "type": "boolean"
+              },
+              "is_admin": {
+                "type": "boolean"
+              },
+              "status": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 1
+              }
+            }
+          }
+        },
+        "required": [
+          "uuid",
+          "name",
+          "created_at",
+          "owner",
+          "extras"
+        ]
       }
     },
     "securitySchemes": {
-      "auth-token": {
+      "API Token": {
         "type": "apiKey",
-        "description": "",
-        "name": "BAD8i6WkWWfYayTHqfeZlFGqtByQsDNImY7UnSZbwvs",
+        "description": "User Access Token",
+        "name": "x-auth-token",
         "in": "header"
       }
     }
