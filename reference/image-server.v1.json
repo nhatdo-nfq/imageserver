@@ -224,7 +224,7 @@
           "name": "uuid",
           "in": "path",
           "required": true,
-          "description": ""
+          "description": "Project UUID"
         }
       ]
     },
@@ -295,7 +295,8 @@
           },
           "name": "uuid",
           "in": "path",
-          "required": true
+          "required": true,
+          "description": "Project UUID"
         }
       ]
     },
@@ -781,7 +782,8 @@
               "status": 1
             }
           }
-        }
+        },
+        "description": ""
       }
     },
     "securitySchemes": {
