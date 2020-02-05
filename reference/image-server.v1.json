@@ -625,7 +625,19 @@
           "email",
           "confirmed",
           "extras"
-        ]
+        ],
+        "x-examples": {
+          "User": {
+            "id": 1,
+            "firstName": "John",
+            "surname": "Doe",
+            "email": "john.doe@imageserver.test",
+            "confirmed": true,
+            "extras": {
+              "gavatar": "3fd6d6d6f23e1f44af6a52192556018a"
+            }
+          }
+        }
       },
       "Pagination": {
         "title": "Pagination",
@@ -650,6 +662,72 @@
           "limit",
           "total"
         ]
+      },
+      "Project": {
+        "title": "Project",
+        "type": "object",
+        "properties": {
+          "uuid": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "created_at": {
+            "type": "string"
+          },
+          "owner": {
+            "$ref": "#/components/schemas/User"
+          },
+          "extras": {
+            "type": "object",
+            "required": [
+              "can_delete",
+              "is_admin",
+              "status"
+            ],
+            "properties": {
+              "can_delete": {
+                "type": "boolean"
+              },
+              "is_admin": {
+                "type": "boolean"
+              },
+              "status": {
+                "type": "boolean"
+              }
+            }
+          }
+        },
+        "required": [
+          "uuid",
+          "name",
+          "created_at",
+          "owner",
+          "extras"
+        ],
+        "x-examples": {
+          "Project": {
+            "uuid": "b927be68-65c8-4c49-bba7-bc736dfe0de8",
+            "name": "test.com",
+            "createdAt": "2020-02-04 11:06",
+            "owner": {
+              "id": 1,
+              "firstName": "Nhật",
+              "surname": "Đỗ",
+              "email": "nhat.do@nfq.asia",
+              "confirmed": true,
+              "extras": {
+                "gavatar": "3fd6d6d6f23e1f44af6a52192556018a"
+              }
+            },
+            "extras": {
+              "canDelete": true,
+              "isAdmin": true,
+              "status": 1
+            }
+          }
+        }
       }
     },
     "securitySchemes": {
