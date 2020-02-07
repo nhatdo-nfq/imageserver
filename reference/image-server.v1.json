@@ -77,10 +77,50 @@
         "responses": {
           "200": {
             "description": "",
-            "headers": {}
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 1
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "Present if there is any error"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ]
+                },
+                "examples": {
+                  "Success": {
+                    "value": {
+                      "error": 0
+                    }
+                  },
+                  "Error": {
+                    "value": {
+                      "error": 1,
+                      "message": "Project not found"
+                    }
+                  }
+                }
+              }
+            }
           }
         },
-        "deprecated": false
+        "deprecated": false,
+        "security": [
+          {
+            "API Token": []
+          }
+        ],
+        "description": "Delete project"
       },
       "parameters": []
     },
@@ -122,7 +162,9 @@
                   "Failed": {
                     "value": {
                       "error": 1,
-                      "msg": "Access Denied."
+                      "fields": {
+                        "name": "\"lazada.com.vn\" is already taken."
+                      }
                     }
                   },
                   "Success": {
@@ -494,6 +536,202 @@
         ]
       },
       "parameters": []
+    },
+    "/api/v1/image/upload": {
+      "post": {
+        "summary": "",
+        "operationId": "post-api-v1-image-upload",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 1
+                    },
+                    "files": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Image"
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "Success": {
+                    "value": {
+                      "files": [
+                        {
+                          "uuid": "967f7aee-d3ef-4e66-a439-b3d764c442a4",
+                          "path": "1566994823183.jpg",
+                          "project": {
+                            "uuid": "c63df9ef-4711-4aed-8377-12cc24d25a81",
+                            "name": "lazada.com.vn",
+                            "created_at": "2020-02-05 09:03",
+                            "owner": {
+                              "id": 1,
+                              "first_name": "Nhật",
+                              "surname": "Đỗ",
+                              "email": "nhat.do@nfq.asia",
+                              "confirmed": true,
+                              "extras": {
+                                "gravatar": "3fd6d6d6f23e1f44af6a52192556018a"
+                              }
+                            },
+                            "extras": []
+                          },
+                          "owner": {
+                            "id": 1,
+                            "first_name": "Nhật",
+                            "surname": "Đỗ",
+                            "email": "nhat.do@nfq.asia",
+                            "confirmed": true,
+                            "extras": {
+                              "gravatar": "3fd6d6d6f23e1f44af6a52192556018a"
+                            }
+                          },
+                          "tags": [],
+                          "created_at": "2020-02-07 03:44"
+                        },
+                        {
+                          "uuid": "12ec409b-d95e-444e-8a46-9510364c5c07",
+                          "path": "1552455277257.jpg",
+                          "project": {
+                            "uuid": "c63df9ef-4711-4aed-8377-12cc24d25a81",
+                            "name": "lazada.com.vn",
+                            "created_at": "2020-02-05 09:03",
+                            "owner": {
+                              "id": 1,
+                              "first_name": "Nhật",
+                              "surname": "Đỗ",
+                              "email": "nhat.do@nfq.asia",
+                              "confirmed": true,
+                              "extras": {
+                                "gravatar": "3fd6d6d6f23e1f44af6a52192556018a"
+                              }
+                            },
+                            "extras": []
+                          },
+                          "owner": {
+                            "id": 1,
+                            "first_name": "Nhật",
+                            "surname": "Đỗ",
+                            "email": "nhat.do@nfq.asia",
+                            "confirmed": true,
+                            "extras": {
+                              "gravatar": "3fd6d6d6f23e1f44af6a52192556018a"
+                            }
+                          },
+                          "tags": [],
+                          "created_at": "2020-02-07 03:44"
+                        },
+                        {
+                          "uuid": "b7cb6e5e-ab81-45db-8bd3-ed05d5daa661",
+                          "path": "1552455274257.jpg",
+                          "project": {
+                            "uuid": "c63df9ef-4711-4aed-8377-12cc24d25a81",
+                            "name": "lazada.com.vn",
+                            "created_at": "2020-02-05 09:03",
+                            "owner": {
+                              "id": 1,
+                              "first_name": "Nhật",
+                              "surname": "Đỗ",
+                              "email": "nhat.do@nfq.asia",
+                              "confirmed": true,
+                              "extras": {
+                                "gravatar": "3fd6d6d6f23e1f44af6a52192556018a"
+                              }
+                            },
+                            "extras": []
+                          },
+                          "owner": {
+                            "id": 1,
+                            "first_name": "Nhật",
+                            "surname": "Đỗ",
+                            "email": "nhat.do@nfq.asia",
+                            "confirmed": true,
+                            "extras": {
+                              "gravatar": "3fd6d6d6f23e1f44af6a52192556018a"
+                            }
+                          },
+                          "tags": [],
+                          "created_at": "2020-02-07 03:44"
+                        }
+                      ],
+                      "error": 0
+                    }
+                  },
+                  "Error: FIles already existed": {
+                    "value": {
+                      "message": [
+                        {
+                          "file": "1566994823183.jpg",
+                          "message": "This image \"1566994823183.jpg\" is already existed."
+                        },
+                        {
+                          "file": "1552455277257.jpg",
+                          "message": "This image \"1552455277257.jpg\" is already existed."
+                        },
+                        {
+                          "file": "1552455274257.jpg",
+                          "message": "This image \"1552455274257.jpg\" is already existed."
+                        }
+                      ],
+                      "error": 1
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "API Token": []
+          }
+        ],
+        "description": "Upload images",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "uuid": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "images[]": {
+                    "type": "array",
+                    "description": "Array of binary images. \nimages[]: new formData() [javascript]",
+                    "items": {
+                      "type": "binary"
+                    }
+                  },
+                  "override": {
+                    "type": "integer",
+                    "default": 0,
+                    "minimum": 0,
+                    "maximum": 1,
+                    "description": "Override Images.\n0: don't override\n1: force override"
+                  }
+                },
+                "required": [
+                  "uuid",
+                  "images[]"
+                ]
+              },
+              "examples": {}
+            }
+          },
+          "description": ""
+        }
+      }
     }
   },
   "tags": [
@@ -537,19 +775,20 @@
       },
       "CreateProjectRequest": {
         "title": "CreateProjectRequest",
-        "required": [
-          "name"
-        ],
         "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
-          }
-        },
         "example": {
           "name": "lazada.com.vn"
         },
-        "x-examples": {}
+        "x-examples": {},
+        "properties": {
+          "name": {
+            "type": "string",
+            "format": "hostname"
+          }
+        },
+        "required": [
+          "name"
+        ]
       },
       "DeleteProjectRequest": {
         "title": "DeleteProjectRequest",
@@ -735,6 +974,82 @@
           "owner",
           "extras"
         ]
+      },
+      "ImageUploadRequest": {
+        "title": "ImageUploadRequest",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          }
+        }
+      },
+      "Image": {
+        "title": "Image",
+        "type": "object",
+        "properties": {
+          "uuid": {
+            "type": "string"
+          },
+          "path": {
+            "type": "string"
+          },
+          "project": {
+            "$ref": "#/components/schemas/Project"
+          },
+          "owner": {
+            "$ref": "#/components/schemas/User"
+          },
+          "tags": {
+            "type": "string"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "uuid",
+          "path",
+          "project",
+          "owner",
+          "tags",
+          "created_at"
+        ],
+        "x-examples": {
+          "Image": {
+            "uuid": "967f7aee-d3ef-4e66-a439-b3d764c442a4",
+            "path": "1566994823183.jpg",
+            "project": {
+              "uuid": "c63df9ef-4711-4aed-8377-12cc24d25a81",
+              "name": "lazada.com.vn",
+              "created_at": "2020-02-05 09:03",
+              "owner": {
+                "id": 1,
+                "first_name": "Nhật",
+                "surname": "Đỗ",
+                "email": "nhat.do@nfq.asia",
+                "confirmed": true,
+                "extras": {
+                  "gravatar": "3fd6d6d6f23e1f44af6a52192556018a"
+                }
+              },
+              "extras": []
+            },
+            "owner": {
+              "id": 1,
+              "first_name": "Nhật",
+              "surname": "Đỗ",
+              "email": "nhat.do@nfq.asia",
+              "confirmed": true,
+              "extras": {
+                "gravatar": "3fd6d6d6f23e1f44af6a52192556018a"
+              }
+            },
+            "tags": [],
+            "created_at": "2020-02-07 03:44"
+          }
+        }
       }
     },
     "securitySchemes": {
