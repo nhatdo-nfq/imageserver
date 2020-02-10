@@ -539,7 +539,7 @@
     },
     "/api/v1/image/upload": {
       "post": {
-        "summary": "",
+        "summary": "Upload Images",
         "operationId": "post-api-v1-image-upload",
         "responses": {
           "200": {
@@ -727,7 +727,7 @@
                 ]
               },
               "examples": {
-                "cURL Example": {
+                "Example": {
                   "value": {
                     "cURL": "curl --location --request POST 'http://imageserver.local/api/v1/image/upload' --form 'uuid=c63df9ef-4711-4aed-8377-12cc24d25a81' --form override=0' --form 'images[]=@/Users/doducnhat/Documents/Pictures/1552455277257.jpg' --form 'images[]=@/Users/doducnhat/Documents/Pictures/1552455274257.jpg'"
                   }
@@ -736,7 +736,173 @@
             }
           },
           "description": ""
+        },
+        "tags": [
+          "Image"
+        ]
+      }
+    },
+    "/api/v1/image/{uuid}": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "uuid",
+          "in": "path",
+          "required": true
         }
+      ],
+      "get": {
+        "summary": "Image List",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Image"
+                      }
+                    },
+                    "": {
+                      "$ref": "#/components/schemas/Pagination"
+                    },
+                    "error": {
+                      "$ref": "#/components/schemas/Error"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ]
+                },
+                "examples": {
+                  "Success": {
+                    "value": {
+                      "data": [
+                        {
+                          "uuid": "52e9ec51-cfe8-4542-baba-4df7b21d274c",
+                          "path": "1566994823183.jpg",
+                          "project": {
+                            "uuid": "fc1728a5-e169-41c0-8a26-f94ed35ca1e5",
+                            "name": "tiki1.com.vn",
+                            "created_at": "2020-02-10 05:58",
+                            "owner": {
+                              "id": 1,
+                              "first_name": "Nhật",
+                              "surname": "Đỗ",
+                              "email": "nhat.do@nfq.asia",
+                              "confirmed": true,
+                              "extras": {
+                                "gravatar": "3fd6d6d6f23e1f44af6a52192556018a"
+                              }
+                            },
+                            "extras": []
+                          },
+                          "owner": {
+                            "id": 1,
+                            "first_name": "Nhật",
+                            "surname": "Đỗ",
+                            "email": "nhat.do@nfq.asia",
+                            "confirmed": true,
+                            "extras": {
+                              "gravatar": "3fd6d6d6f23e1f44af6a52192556018a"
+                            }
+                          },
+                          "tags": [],
+                          "created_at": "2020-02-10 05:58"
+                        },
+                        {
+                          "uuid": "4db69d05-ef00-40a6-999a-df11046de213",
+                          "path": "1552455277257.jpg",
+                          "project": {
+                            "uuid": "fc1728a5-e169-41c0-8a26-f94ed35ca1e5",
+                            "name": "tiki1.com.vn",
+                            "created_at": "2020-02-10 05:58",
+                            "owner": {
+                              "id": 1,
+                              "first_name": "Nhật",
+                              "surname": "Đỗ",
+                              "email": "nhat.do@nfq.asia",
+                              "confirmed": true,
+                              "extras": {
+                                "gravatar": "3fd6d6d6f23e1f44af6a52192556018a"
+                              }
+                            },
+                            "extras": []
+                          },
+                          "owner": {
+                            "id": 1,
+                            "first_name": "Nhật",
+                            "surname": "Đỗ",
+                            "email": "nhat.do@nfq.asia",
+                            "confirmed": true,
+                            "extras": {
+                              "gravatar": "3fd6d6d6f23e1f44af6a52192556018a"
+                            }
+                          },
+                          "tags": [],
+                          "created_at": "2020-02-10 05:58"
+                        },
+                        {
+                          "uuid": "4b5bb0d1-6c71-403e-a8b9-0437d9cd9613",
+                          "path": "1552455274257.jpg",
+                          "project": {
+                            "uuid": "fc1728a5-e169-41c0-8a26-f94ed35ca1e5",
+                            "name": "tiki1.com.vn",
+                            "created_at": "2020-02-10 05:58",
+                            "owner": {
+                              "id": 1,
+                              "first_name": "Nhật",
+                              "surname": "Đỗ",
+                              "email": "nhat.do@nfq.asia",
+                              "confirmed": true,
+                              "extras": {
+                                "gravatar": "3fd6d6d6f23e1f44af6a52192556018a"
+                              }
+                            },
+                            "extras": []
+                          },
+                          "owner": {
+                            "id": 1,
+                            "first_name": "Nhật",
+                            "surname": "Đỗ",
+                            "email": "nhat.do@nfq.asia",
+                            "confirmed": true,
+                            "extras": {
+                              "gravatar": "3fd6d6d6f23e1f44af6a52192556018a"
+                            }
+                          },
+                          "tags": [],
+                          "created_at": "2020-02-10 05:58"
+                        }
+                      ],
+                      "pagination": {
+                        "returned": 3,
+                        "current_page": 1,
+                        "limit": 50,
+                        "total": 3
+                      },
+                      "error": 0
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-api-v1-image-uuid",
+        "description": "List all images in the project",
+        "security": [
+          {
+            "API Token": []
+          }
+        ]
       }
     }
   },
@@ -1056,6 +1222,31 @@
             "created_at": "2020-02-07 03:44"
           }
         }
+      },
+      "Error": {
+        "title": "Error",
+        "description": "",
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "message": {
+            "type": [
+              "string",
+              "array",
+              "null"
+            ],
+            "items": {
+              "type": "object"
+            }
+          }
+        },
+        "required": [
+          "error"
+        ]
       }
     },
     "securitySchemes": {
