@@ -755,7 +755,9 @@
       ],
       "get": {
         "summary": "Image List",
-        "tags": [],
+        "tags": [
+          "Image"
+        ],
         "responses": {
           "200": {
             "description": "OK",
