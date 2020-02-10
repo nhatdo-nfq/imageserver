@@ -124,7 +124,7 @@
       },
       "parameters": []
     },
-    "/api/v1/project": {
+    "/api/v1/project/": {
       "post": {
         "tags": [
           "Project"
