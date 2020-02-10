@@ -890,6 +890,12 @@
                       },
                       "error": 0
                     }
+                  },
+                  "Invalid UUID": {
+                    "value": {
+                      "message": "Project not found",
+                      "error": 1
+                    }
                   }
                 }
               }
