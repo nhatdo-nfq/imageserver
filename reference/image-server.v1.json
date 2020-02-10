@@ -1233,7 +1233,8 @@
           "owner",
           "tags",
           "created_at"
-        ]
+        ],
+        "description": ""
       },
       "Error": {
         "title": "Error",
@@ -1262,26 +1263,19 @@
       },
       "Tag": {
         "title": "Tag",
-        "oneOf": [
-          {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
-              },
-              "created_at": {
-                "type": "string",
-                "format": "date-time"
-              }
-            },
-            "required": [
-              "name",
-              "created_at"
-            ]
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
           },
-          {
-            "type": "null"
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
           }
+        },
+        "required": [
+          "name",
+          "created_at"
         ]
       }
     },
