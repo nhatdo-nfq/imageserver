@@ -1262,19 +1262,26 @@
       },
       "Tag": {
         "title": "Tag",
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
+        "oneOf": [
+          {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "created_at": {
+                "type": "string",
+                "format": "date-time"
+              }
+            },
+            "required": [
+              "name",
+              "created_at"
+            ]
           },
-          "created_at": {
-            "type": "string",
-            "format": "date-time"
+          {
+            "type": "null"
           }
-        },
-        "required": [
-          "name",
-          "created_at"
         ]
       }
     },
