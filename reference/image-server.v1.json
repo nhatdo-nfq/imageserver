@@ -18,6 +18,39 @@
     }
   ],
   "paths": {
+    "/api/v1/project/accept": {
+      "post": {
+        "tags": [
+          "Project"
+        ],
+        "summary": "Accept Project",
+        "operationId": "AcceptProject",
+        "parameters": [],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LeaveProjectRequest"
+              },
+              "example": {
+                "uuid": "0f67e1a0-0260-4dcf-b667-c8226d12d9a4"
+              }
+            }
+          },
+          "required": true,
+          "x-send-file-in-body": false
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false
+      },
+      "parameters": []
+    },
     "/api/v1/project/leave": {
       "post": {
         "tags": [
@@ -124,7 +157,7 @@
       },
       "parameters": []
     },
-    "/api/v1/project/": {
+    "/api/v1/project/save": {
       "post": {
         "tags": [
           "Project"
@@ -156,34 +189,46 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "properties": {}
+                  "properties": {
+                    "project": {
+                      "$ref": "#/components/schemas/Project"
+                    },
+                    "error": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 1
+                    }
+                  }
                 },
                 "examples": {
                   "Failed": {
                     "value": {
                       "error": 1,
                       "fields": {
-                        "name": "\"lazada.com.vn\" is already taken."
+                        "name": "\"example.com\" is already taken."
                       }
                     }
                   },
                   "Success": {
                     "value": {
                       "project": {
-                        "uuid": "1e8f8f2a-e665-4226-bf2f-4df3d0f4acc5",
-                        "name": "zing.vn",
-                        "createdAt": "2020-02-04 11:39",
+                        "uuid": "d55e99b2-9ed3-4e68-b813-fbb0c283bec3",
+                        "name": "example.com",
+                        "created_at": "2020-02-11 04:27",
                         "owner": {
                           "id": 1,
-                          "firstName": "Nhật",
+                          "first_name": "Nhật",
                           "surname": "Đỗ",
                           "email": "nhat.do@nfq.asia",
                           "confirmed": true,
                           "extras": {
-                            "gavatar": "3fd6d6d6f23e1f44af6a52192556018a"
+                            "gravatar": "3fd6d6d6f23e1f44af6a52192556018a"
                           }
                         },
-                        "extras": []
+                        "extras": {
+                          "num_of_images": 0,
+                          "num_of_members": 1
+                        }
                       },
                       "error": 0
                     }
@@ -944,7 +989,7 @@
         "title": "CreateProjectRequest",
         "type": "object",
         "example": {
-          "name": "lazada.com.vn"
+          "name": "example.com"
         },
         "x-examples": {},
         "properties": {
@@ -1077,23 +1122,25 @@
         "type": "object",
         "x-examples": {
           "Project": {
-            "uuid": "b927be68-65c8-4c49-bba7-bc736dfe0de8",
-            "name": "test.com",
-            "createdAt": "2020-02-04 11:06",
+            "uuid": "d55e99b2-9ed3-4e68-b813-fbb0c283bec3",
+            "name": "example.com",
+            "created_at": "2020-02-11 04:27",
             "owner": {
               "id": 1,
-              "firstName": "Nhật",
+              "first_name": "Nhật",
               "surname": "Đỗ",
               "email": "nhat.do@nfq.asia",
               "confirmed": true,
               "extras": {
-                "gavatar": "3fd6d6d6f23e1f44af6a52192556018a"
+                "gravatar": "3fd6d6d6f23e1f44af6a52192556018a"
               }
             },
             "extras": {
-              "canDelete": true,
-              "isAdmin": true,
-              "status": 1
+              "can_delete": true,
+              "is_admin": true,
+              "status": 1,
+              "num_of_images": 4,
+              "num_of_members": 2
             }
           }
         },
@@ -1114,11 +1161,6 @@
           },
           "extras": {
             "type": "object",
-            "required": [
-              "can_delete",
-              "is_admin",
-              "status"
-            ],
             "properties": {
               "can_delete": {
                 "type": "boolean"
@@ -1130,6 +1172,14 @@
                 "type": "integer",
                 "minimum": 0,
                 "maximum": 1
+              },
+              "num_of_images": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "num_of_members": {
+                "type": "integer",
+                "minimum": 0
               }
             }
           }
