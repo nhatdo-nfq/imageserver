@@ -18,39 +18,6 @@
     }
   ],
   "paths": {
-    "/api/v1/project/accept": {
-      "post": {
-        "tags": [
-          "Project"
-        ],
-        "summary": "Accept Project",
-        "operationId": "AcceptProject",
-        "parameters": [],
-        "requestBody": {
-          "description": "",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/LeaveProjectRequest"
-              },
-              "example": {
-                "uuid": "0f67e1a0-0260-4dcf-b667-c8226d12d9a4"
-              }
-            }
-          },
-          "required": true,
-          "x-send-file-in-body": false
-        },
-        "responses": {
-          "200": {
-            "description": "",
-            "headers": {}
-          }
-        },
-        "deprecated": false
-      },
-      "parameters": []
-    },
     "/api/v1/project/leave": {
       "post": {
         "tags": [
@@ -77,7 +44,34 @@
         "responses": {
           "200": {
             "description": "",
-            "headers": {}
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/ResponseSuccess"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ResponseError"
+                    }
+                  ]
+                },
+                "examples": {
+                  "Success": {
+                    "value": {
+                      "error": 0
+                    }
+                  },
+                  "Failed": {
+                    "value": {
+                      "error": 1,
+                      "message": "The owner can not leave project"
+                    }
+                  }
+                }
+              }
+            }
           }
         },
         "deprecated": false
@@ -172,10 +166,19 @@
               "schema": {
                 "$ref": "#/components/schemas/CreateProjectRequest"
               },
-              "example": {
-                "name": "lazada.com.vn"
-              },
-              "examples": {}
+              "examples": {
+                "Update": {
+                  "value": {
+                    "name": "example.com",
+                    "uuid": "e140a419-506f-432d-b1f8-621bf0f647b4"
+                  }
+                },
+                "Create": {
+                  "value": {
+                    "name": "example.com"
+                  }
+                }
+              }
             }
           },
           "required": true,
@@ -188,17 +191,24 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "project": {
-                      "$ref": "#/components/schemas/Project"
+                  "oneOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "project": {
+                          "$ref": "#/components/schemas/Project"
+                        },
+                        "error": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 1
+                        }
+                      }
                     },
-                    "error": {
-                      "type": "integer",
-                      "minimum": 0,
-                      "maximum": 1
+                    {
+                      "$ref": "#/components/schemas/Error"
                     }
-                  }
+                  ]
                 },
                 "examples": {
                   "Failed": {
@@ -944,6 +954,39 @@
           }
         ]
       }
+    },
+    "/api/v1/project/accept": {
+      "post": {
+        "tags": [
+          "Project"
+        ],
+        "summary": "Accept Project",
+        "operationId": "AcceptProject",
+        "parameters": [],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LeaveProjectRequest"
+              },
+              "example": {
+                "uuid": "0f67e1a0-0260-4dcf-b667-c8226d12d9a4"
+              }
+            }
+          },
+          "required": true,
+          "x-send-file-in-body": false
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false
+      },
+      "parameters": []
     }
   },
   "tags": [
@@ -991,11 +1034,25 @@
         "example": {
           "name": "example.com"
         },
-        "x-examples": {},
+        "x-examples": {
+          "Create New Project": {
+            "name": "example.com"
+          },
+          "Update Project": {
+            "name": "example.com",
+            "uuid": "e140a419-506f-432d-b1f8-621bf0f647b4"
+          }
+        },
         "properties": {
           "name": {
             "type": "string",
-            "format": "hostname"
+            "format": "hostname",
+            "description": "New project domain"
+          },
+          "uuid": {
+            "type": "string",
+            "format": "uuid",
+            "description": "if presented, project will be updated"
           }
         },
         "required": [
@@ -1296,41 +1353,35 @@
         ],
         "description": ""
       },
-      "Error": {
+      "ResponseError": {
         "title": "Error",
         "description": "",
         "type": "object",
+        "x-examples": {
+          "Failed": {
+            "error": 1,
+            "message": "Project Not Found"
+          }
+        },
         "properties": {
           "error": {
             "type": "integer",
-            "minimum": 0,
+            "default": 1,
+            "minimum": 1,
             "maximum": 1
           },
           "message": {
             "type": [
               "string",
-              "array"
-            ],
-            "items": {
-              "type": [
-                "string",
-                "object"
-              ]
-            }
+              "array",
+              "object"
+            ]
           }
         },
         "required": [
-          "error"
-        ],
-        "x-examples": {
-          "Success": {
-            "error": 0
-          },
-          "Failed": {
-            "error": 1,
-            "message": "Project Not Found"
-          }
-        }
+          "error",
+          "message"
+        ]
       },
       "Tag": {
         "title": "Tag",
@@ -1347,6 +1398,44 @@
         "required": [
           "name",
           "created_at"
+        ]
+      },
+      "ResponseSuccess": {
+        "title": "ResponseSuccess",
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "integer",
+            "default": 0,
+            "minimum": 0,
+            "maximum": 0
+          }
+        },
+        "x-examples": {
+          "Example": {
+            "error": 0
+          }
+        }
+      },
+      "ResponseAccessDenied": {
+        "title": "ResponseAccessDenied",
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "integer",
+            "default": 1,
+            "minimum": 1,
+            "maximum": 1
+          },
+          "message": {
+            "type": "string",
+            "description": "",
+            "example": "Access denied"
+          }
+        },
+        "required": [
+          "error",
+          "message"
         ]
       }
     },
