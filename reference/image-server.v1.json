@@ -785,27 +785,6 @@
                   }
                 }
               }
-            },
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "uuid": {
-                    "type": "string",
-                    "format": "uuid",
-                    "description": "Project uuid"
-                  },
-                  "override": {
-                    "type": "integer",
-                    "default": 0,
-                    "minimum": 0,
-                    "maximum": 1
-                  }
-                },
-                "required": [
-                  "uuid"
-                ]
-              }
             }
           },
           "description": ""
@@ -813,17 +792,7 @@
         "tags": [
           "Image"
         ],
-        "parameters": [
-          {
-            "schema": {
-              "type": "string",
-              "default": "application/x-www-form-urlencoded"
-            },
-            "in": "header",
-            "name": "Content-Type",
-            "required": true
-          }
-        ]
+        "parameters": []
       }
     },
     "/api/v1/image/{project-uuid}": {
