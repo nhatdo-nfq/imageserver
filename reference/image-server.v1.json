@@ -770,6 +770,17 @@
         },
         "tags": [
           "Image"
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "default": "multipart/form-data"
+            },
+            "in": "header",
+            "name": "Content-Type",
+            "required": true
+          }
         ]
       }
     },
