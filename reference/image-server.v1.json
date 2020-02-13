@@ -792,7 +792,18 @@
         "tags": [
           "Image"
         ],
-        "parameters": []
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "default": "application/x-www-form-urlencoded"
+            },
+            "in": "header",
+            "name": "Content-Type",
+            "required": true,
+            "description": ""
+          }
+        ]
       }
     },
     "/api/v1/image/{project-uuid}": {
