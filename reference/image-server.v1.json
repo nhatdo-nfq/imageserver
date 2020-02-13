@@ -784,16 +784,15 @@
         ]
       }
     },
-    "/api/v1/image/{uuid}": {
+    "/api/v1/image/{project-uuid}": {
       "parameters": [
         {
           "schema": {
             "type": "string"
           },
-          "name": "uuid",
+          "name": "project-uuid",
           "in": "path",
-          "required": true,
-          "description": "Project UUID"
+          "required": true
         }
       ],
       "get": {
@@ -964,39 +963,6 @@
             "description": "Search images by tag name. Separated by comma"
           }
         ]
-      },
-      "delete": {
-        "summary": "Delete Image",
-        "operationId": "delete-api-v1-image-uuid",
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseSuccess"
-                },
-                "examples": {
-                  "Success": {
-                    "value": {
-                      "message": "image deleted successfully",
-                      "error": 0
-                    }
-                  }
-                }
-              }
-            }
-          }
-        },
-        "description": "Delete image",
-        "security": [
-          {
-            "API Token": []
-          }
-        ],
-        "tags": [
-          "Image"
-        ]
       }
     },
     "/api/v1/project/accept": {
@@ -1031,6 +997,44 @@
         "deprecated": false
       },
       "parameters": []
+    },
+    "/api/v1/image/{image-uuid}": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "image-uuid",
+          "in": "path",
+          "required": true,
+          "description": "Image uuid"
+        }
+      ],
+      "delete": {
+        "summary": "Delete Image",
+        "operationId": "delete-api-v1-image-image-uuid",
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseSuccess"
+                }
+              }
+            }
+          }
+        },
+        "description": "Delete image",
+        "tags": [
+          "Image"
+        ],
+        "security": [
+          {
+            "API Token": []
+          }
+        ]
+      }
     }
   },
   "tags": [
