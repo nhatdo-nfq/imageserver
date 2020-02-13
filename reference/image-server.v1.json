@@ -792,7 +792,8 @@
           },
           "name": "project-uuid",
           "in": "path",
-          "required": true
+          "required": true,
+          "description": "Project uuid"
         }
       ],
       "get": {
