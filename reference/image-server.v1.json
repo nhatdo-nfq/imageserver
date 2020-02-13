@@ -328,8 +328,8 @@
         }
       ]
     },
-    "/api/v1/project/{uuid}": {
-      "post": {
+    "/api/v1/project/{project-uuid}": {
+      "get": {
         "tags": [
           "Project"
         ],
@@ -393,10 +393,9 @@
           "schema": {
             "type": "string"
           },
-          "name": "uuid",
+          "name": "project-uuid",
           "in": "path",
-          "required": true,
-          "description": "Project UUID"
+          "required": true
         }
       ]
     },
