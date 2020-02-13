@@ -964,6 +964,39 @@
             "description": "Search images by tag name. Separated by comma"
           }
         ]
+      },
+      "delete": {
+        "summary": "Delete Image",
+        "operationId": "delete-api-v1-image-uuid",
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseSuccess"
+                },
+                "examples": {
+                  "Success": {
+                    "value": {
+                      "message": "image deleted successfully",
+                      "error": 0
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "description": "Delete image",
+        "security": [
+          {
+            "API Token": []
+          }
+        ],
+        "tags": [
+          "Image"
+        ]
       }
     },
     "/api/v1/project/accept": {
@@ -1414,17 +1447,21 @@
       "ResponseSuccess": {
         "title": "ResponseSuccess",
         "type": "object",
+        "x-examples": {
+          "Example": {
+            "error": 0
+          }
+        },
         "properties": {
           "error": {
             "type": "integer",
             "default": 0,
             "minimum": 0,
             "maximum": 0
-          }
-        },
-        "x-examples": {
-          "Example": {
-            "error": 0
+          },
+          "message": {
+            "type": "string",
+            "description": ""
           }
         }
       },
