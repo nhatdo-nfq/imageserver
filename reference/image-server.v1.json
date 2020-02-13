@@ -761,8 +761,22 @@
                     "items": {
                       "type": "string"
                     }
+                  },
+                  "uuid": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "override": {
+                    "type": "integer",
+                    "default": 0,
+                    "minimum": 0,
+                    "maximum": 1
                   }
-                }
+                },
+                "required": [
+                  "images[]",
+                  "uuid"
+                ]
               },
               "examples": {
                 "Example": {
