@@ -720,20 +720,25 @@
                       "error": 0
                     }
                   },
-                  "Error: FIles already existed": {
+                  "Error: File(s) already exist": {
                     "value": {
                       "message": [
+                        "File(s) already exist"
+                      ],
+                      "files": [
                         {
-                          "file": "1566994823183.jpg",
-                          "message": "This image \"1566994823183.jpg\" is already existed."
+                          "uuid": "48a9fb8c-a0c0-4216-86a8-db0c15291116",
+                          "name": "rose_300.jpg",
+                          "path": "8/8e/rose_300.jpg",
+                          "project_id": 1,
+                          "created_at": "2020-06-16 06:27:38"
                         },
                         {
-                          "file": "1552455277257.jpg",
-                          "message": "This image \"1552455277257.jpg\" is already existed."
-                        },
-                        {
-                          "file": "1552455274257.jpg",
-                          "message": "This image \"1552455274257.jpg\" is already existed."
+                          "uuid": "448cd183-5b1a-48cc-b252-7291aefd1a78",
+                          "name": "rose_302.jpg",
+                          "path": "d/35/rose_302.jpg",
+                          "project_id": 1,
+                          "created_at": "2020-06-16 06:27:38"
                         }
                       ],
                       "error": 1
