@@ -1,0 +1,137 @@
+openapi: 3.0.0
+info:
+  title: image server
+  version: '1.0'
+servers:
+  - url: 'http://localhost:3000'
+paths:
+  '/package/{package_id}':
+    parameters:
+      - schema:
+          type: string
+        name: package_id
+        in: path
+        required: true
+    get:
+      summary: Get package detail
+      operationId: get-package-detail
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    description: '1: success - 0: error'
+                    minimum: 0
+                    maximum: 1
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        package_id:
+                          type: string
+                        name:
+                          type: string
+                        price:
+                          type: string
+                        quantity:
+                          type: string
+                        weight:
+                          type: string
+                        created_at:
+                          type: string
+                          format: date-time
+                        updated_at:
+                          type: string
+                          format: date-time
+                        id:
+                          type: integer
+                          minimum: 1
+                          maximum: 99
+                      required:
+                        - id
+      description: ''
+  /packages:
+    get:
+      summary: Get all packages
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      minimum: 1
+                    name:
+                      type: string
+                    package_id:
+                      type: string
+                    tracking_number:
+                      type: string
+                    received_at:
+                      type: string
+                      format: date-time
+                    created_at:
+                      type: string
+                      format: date-time
+                    updated_at:
+                      type: string
+                      format: date-time
+      operationId: get-packages
+      requestBody: {}
+  '/package/{id}':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    patch:
+      summary: Update package detail
+      operationId: update-package-detail
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    default: 1
+                    minimum: 0
+                    maximum: 1
+                  message:
+                    type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                price:
+                  type: number
+                  minimum: 0
+                  maximum: 99
+                quantity:
+                  type: integer
+                  minimum: 0
+                  maximum: 99
+                weight:
+                  type: number
+                  minimum: 0
+                  maximum: 99

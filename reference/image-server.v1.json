@@ -1057,6 +1057,83 @@
           }
         ]
       }
+    },
+    "/api/v1/image/tag": {
+      "post": {
+        "summary": "Add Tag",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseSuccess"
+                },
+                "examples": {
+                  "Success": {
+                    "value": {
+                      "message": "adding tags successfully",
+                      "error": 0
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "post-api-v1-image-tag",
+        "description": "Add tags to images",
+        "security": [
+          {
+            "API Token": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "images": {
+                    "type": "array",
+                    "description": "list of image uuid",
+                    "uniqueItems": true,
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "tags": {
+                    "type": "array",
+                    "uniqueItems": true,
+                    "description": "list of tags",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "required": [
+                  "images",
+                  "tags"
+                ]
+              },
+              "examples": {
+                "Add Tag": {
+                  "value": {
+                    "tags": [
+                      "test",
+                      "123"
+                    ],
+                    "images": [
+                      "352db36d-87bf-4832-98f8-14cb996b84ae"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "tags": [
