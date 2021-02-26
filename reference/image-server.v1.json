@@ -776,6 +776,13 @@
                     "default": 0,
                     "minimum": 0,
                     "maximum": 1
+                  },
+                  "files[]": {
+                    "type": "array",
+                    "description": "Required if images is empty",
+                    "items": {
+                      "type": "string"
+                    }
                   }
                 },
                 "required": [
